@@ -17,6 +17,15 @@ class Retangulo(figuraGeometrica):
     def calcular_area(self):
         return self.base * self.altura
 
+class Quadrado(figuraGeometrica):
+    def __init__(self, nome, base, altura):
+        super().__init__('Quadrado')
+        self.base = base
+        self.altura = altura
+
+    def calcular_area(self):
+        return self.base * self.altura
+
 class Circulo(figuraGeometrica):
     def __init__(self, nome, raio):
         super().__init__('Círculo')
