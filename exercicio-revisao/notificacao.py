@@ -30,7 +30,7 @@ class NotificacaoEmail(Notificacao):
 
     @registrar_envio
     def enviar(self):
-        print(f'Email Enviado para o destinatario: ', self.destinatario)
+        return f'Email Enviado para o destinatario: {self.destinatario}'
 
 class NotificacaoSMS(Notificacao):
 
@@ -39,7 +39,8 @@ class NotificacaoSMS(Notificacao):
 
     @registrar_envio
     def enviar(self):
-        print(f'SMS Enviado para o destinatario: ', self.destinatario)
+        return f'SMS Enviado para o destinatario: {self.destinatario}'
+        
 
 
 notificacao_email = NotificacaoEmail('Gabriel', 'Olá, tudo bem?')
