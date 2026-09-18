@@ -16,8 +16,6 @@ def test_notificacao_email():
         mensagem="Hello World"
     )
 
-    gba = notificacao_email.enviar()
-
     assert notificacao_email.enviar() == "Email Enviado para o destinatario: Gabriel"
 
 
@@ -25,6 +23,6 @@ def test_notificacao_email():
 def test_classe_abstrata():
     with pytest.raises(TypeError):
         Notificacao(
-            destinatario="123456789",
-            mensagem="Teste de notificação SMS"
-        )  
+            destinatario="Gabriel",
+            mensagem="Hello World"
+        )
