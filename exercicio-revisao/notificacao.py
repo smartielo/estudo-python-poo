@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
+from functools import wraps
 
 # Um decorator permite adicionar um comportamento antes e depois de um método
 # sem repetir esse código em cada classe que realiza o envio.
 def registrar_envio(func):
+    @wraps(func)
     def wrapper(*args, **kwargs):
         print("Iniciando envio da notificação")
         response = func(*args, **kwargs)
-        print(response)  # O decorator exibe o valor retornado pelo método.
         print("Envio finalizado")
         return response
     return wrapper
@@ -21,11 +22,11 @@ class Notificacao(ABC):
         self.destinatario = destinatario
 
     def exibir_dados(self):
-        print(f'Mensagem: ', self.mensagem, 'Destinatario: ', self.destinatario)
+        return self.destinatario, self.mensagem
 
     # Toda subclasse precisa fornecer sua própria forma de enviar.
     @abstractmethod
-    def enviar(self, destinatario, mensagem):
+    def enviar(self):
         pass
 
 
@@ -40,7 +41,7 @@ class NotificacaoEmail(Notificacao):
     @registrar_envio
     def enviar(self):
         # return devolve o resultado; quem chama o método decide como usá-lo.
-        return f'Email Enviado para o destinatario: {self.destinatario}'
+        return f'E-mail enviado para {self.destinatario}'
 
 class NotificacaoSMS(Notificacao):
 
@@ -50,16 +51,16 @@ class NotificacaoSMS(Notificacao):
     # O mesmo contrato pode ter uma implementação diferente para SMS.
     @registrar_envio
     def enviar(self):
-        return f'SMS Enviado para o destinatario: {self.destinatario}'
+        return f'SMS enviado para {self.destinatario}'
         
 
-print(30 * '-')
-notificacao_email = NotificacaoEmail('Gabriel', 'Olá, tudo bem?')
-notificacao_email.exibir_dados()
-# Não usamos print aqui porque o decorator já exibe o retorno uma única vez.
-notificacao_email.enviar()
-print(30 * '-')
-notificacao_sms = NotificacaoSMS('Gabriel', 'Olá, tudo bem?')
-notificacao_sms.exibir_dados()
-notificacao_sms.enviar()
-print(30 * '-')
+if __name__ == '__main__':
+    print(30 * '-')
+    notificacao_email = NotificacaoEmail('Gabriel', 'Olá, tudo bem?')
+    print(notificacao_email.exibir_dados())
+    print(notificacao_email.enviar())
+    print(30 * '-')
+    notificacao_sms = NotificacaoSMS('Gabriel', 'Olá, tudo bem?')
+    print(notificacao_sms.exibir_dados())
+    print(notificacao_sms.enviar())
+    print(30 * '-')

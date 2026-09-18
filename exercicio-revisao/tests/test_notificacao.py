@@ -7,7 +7,7 @@ def test_notificacao_sms():
         mensagem="Hello World"
     )
 
-    assert notificacao_sms.enviar() == "SMS Enviado para o destinatario: Gabriel"
+    assert notificacao_sms.enviar() == "SMS enviado para Gabriel"
 
 
 def test_notificacao_email():
@@ -16,8 +16,22 @@ def test_notificacao_email():
         mensagem="Hello World"
     )
 
-    assert notificacao_email.enviar() == "Email Enviado para o destinatario: Gabriel"
+    assert notificacao_email.enviar() == "E-mail enviado para Gabriel"
 
+
+
+def test_exibir_dados():
+    notificacao_email = NotificacaoEmail(
+        destinatario="Gabriel",
+        mensagem="Hello World"
+    )
+    notificacao_sms = NotificacaoSMS(
+        destinatario="Gabriel",
+        mensagem="Hello World"
+    )
+
+    assert notificacao_email.exibir_dados() == ("Gabriel", "Hello World")
+    assert notificacao_sms.exibir_dados() == ("Gabriel", "Hello World")
 
 
 def test_classe_abstrata():
